@@ -1,0 +1,75 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Nieuwsoverzicht{% endblock %}
+
+{% block content %}
+<section class="nieuwsOverzicht">
+    <div class="container text-center" >
+        <div class="title">
+            <div class="row justify-center-md-center">
+                <div class="col-md-12 col-lg-12 col-sm-6 ">
+                    <h2>Beheer</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="nieuwsberichten">
+    <div class="container" >
+        <div class="row justify-center-md-center">
+
+            <a href="{{ path('beheerNieuws') }}"><button>Nieuws</button></a>
+            <a href="{{ path('beheerPartners') }}"><button>Partners</button></a>
+            <a href="{{ path('beheerInformatie') }}"><button>Informatie</button></a>
+            <a href="{{ path('beheerContacten') }}"><button>Contacten</button></a>
+        </div>
+        <div class="title beheerPortal">
+            <div class="container text-center" >
+                <div class="row justify-center-md-center">
+                    <div class="col-md-12 col-lg-12 col-sm-6 ">
+                        <h2>Nieuws</h2></div></div></div>
+        </div>
+
+        <a href="{{ path('post_new') }}"><button class="beheer">Toevoegen</button></a>
+    </div></section>
+    <div class="container">
+    <table class="table table-striped indexTable">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Inhoud</th>
+                <th>Afbeelding</th>
+
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts|sort((a, b) => b.created <=> a.created) %}
+            <tr>
+                <td><div><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.title }}</a></div></td>
+                <td><div>{{ post.content|raw }}</div></td>
+                <td>
+                    <div class="beheer">
+                        {% if post.image != null %}
+                            <img src="{{  asset(vich_uploader_asset(post, 'imageFile')) }}" alt="{{ post.title }}" />
+                        {% endif %}
+                    </div>
+                </td>
+                <td style="min-width: 100px">
+                    <div>
+                        <a href="{{ path('post_edit', {'id': post.id}) }}"><i class="fas fa-pencil-alt"></i>&nbsp;edit</a><br />
+                        <a href="{{ path('post_delete', {'id': post.id}) }}" onclick="return confirm('Weet u zeker dat u dit item wilt verwijderen?');"><i class="fas fa-trash"></i>&nbsp;delete</a><br/>
+                        <a href="{{ path('post_show', {'id': post.id}) }}"><i class="fas fa-list-ul"></i>&nbsp;details</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

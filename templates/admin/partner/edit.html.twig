@@ -1,0 +1,38 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Partner aanpassen{% endblock %}
+
+{% block content %}
+    <section class="nieuwsOverzicht">
+        <div class="container text-center" >
+            <div class="title">
+                <div class="row justify-center-md-center">
+                    <div class="col-md-12 col-lg-12 col-sm-6 ">
+                        <h2></h2></div></div></div></div>
+    </section>
+
+<div class="container " >
+    {{ include('admin/partner/_form.html.twig', {'button_label': 'Opslaan'}) }}
+
+    <div class="nieuwsberichten">
+        <a href="{{ path('beheerPartners') }}">
+            <button style="margin-left:0px">Naar Overzicht</button></a>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    
+    <script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    var fileName = '{{ partner.image }}'.split("\\").pop();
+    $(".custom-file-input").siblings(".custom-file-label").addClass("selected").html(fileName);
+    </script>
+{% endblock %}

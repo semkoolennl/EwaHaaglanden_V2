@@ -1,0 +1,55 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}Partners | EWA Haaglanden{% endblock %}
+
+{% block description %}
+De partners van de publiek-private samenwerking EWA Haaglanden – jongeren naar diploma en werk.
+{% endblock %}
+
+{% block content %}
+<section class="nieuwsOverzicht">
+    <div class="container text-center" >
+        <div class="title">
+            <div class="row justify-center-md-center">
+                <div class="col-md-12 col-lg-12 col-sm-6">
+                    <h2>Partners</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container" >
+    <section class="partners">
+        <div class="row justify-center-md-center">
+            <!--    start  partners -->
+            {% for partner in partners %}                
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 ">
+                   <div class="container">
+                        <div class="card">
+                            <div class="card-img"> 
+                                <img class="card-img-top" src="../{{  vich_uploader_asset(partner, 'imageFile') }}" alt="{{ partner.name }}" />
+                            </div>
+                            <div class="card-body " >
+                                <h5>{{ partner.name }}</h5>
+                                {% set website = partner.website %}
+                                {% if website|slice(0, 8) == "https://" %}
+                                    {% set website = website|slice(8) %}
+                                {% endif %}
+                                {% if website|slice(0, 4) == "www." %}
+                                    {% set website = website|slice(4) %}
+                                {% endif %}
+                                <a href="https://www.{{ website }}" target='_blank'><button >Website</button></a>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!--    einde  partners -->
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+
+
+
